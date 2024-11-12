@@ -23,6 +23,7 @@ def get_args() -> Namespace:
                         help="Specify a path to another binary which will be put beside the first binary in the output.")
     parser.add_argument('--overwrite', action='store_true',
                         help="when enabled, videos/images will not be stored in subfolders of the time")
+    parser.add_argument('--scale', type=float, nargs=1, help="A scale factor by which all outputs will be scaled by.")
 
     return parser.parse_args()
 
@@ -95,11 +96,13 @@ if __name__ == "__main__":
         for file in os.listdir(out_path):
             os.remove(os.path.join(out_path, file))
 
+    scale_factor = args.scale[0] if args.scale else 1
+
     if args.frames:
-        save_images(data, out_path)
+        save_images(data, out_path, scale_factor)
 
     if not args.frames:
         codec: str = args.codec[0] if args.codec else 'MP4'
-        save_video(data, codec, out_path, width, height)
+        save_video(data, codec, out_path, width, height, scale_factor)
 
     print("Finished.")
