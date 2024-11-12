@@ -1,0 +1,7 @@
+venv
+.fleet
+.idea
+*.bin
+out
+*.mp4
+*.avi
