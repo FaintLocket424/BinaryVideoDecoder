@@ -8,7 +8,6 @@ from typing import BinaryIO
 import numpy as np
 from numpy import ndarray
 
-from modifiers import replace_color
 from saving import save_images, save_video
 
 
@@ -89,8 +88,6 @@ if __name__ == "__main__":
     data = read_bin()
 
     _, height, width, _ = data.shape
-
-    # replace_color(data, [0, 0, 0], [128, 128, 255])
 
     out_path = "out" if args.overwrite else os.path.join("out", str(int(time.time())))
 

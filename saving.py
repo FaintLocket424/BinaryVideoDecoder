@@ -1,4 +1,5 @@
 import os
+from pickletools import optimize
 
 import cv2 as cv
 from PIL import Image as pImg
@@ -16,7 +17,18 @@ def save_images(_data: ndarray, _out_path: str) -> None:
 
 
 def save_video(_data: ndarray, _codec: str, _out_path: str, _width: int, _height: int) -> None:
-    if _codec.upper() == "MP4":
+    if _codec.upper() == "GIF":
+        _video_file_name = os.path.join(_out_path, "video.gif")
+
+        images = []
+
+        for _frame in _data:
+            images.append(pImg.fromarray(_frame))
+
+        images[0].save(_video_file_name, save_all=True, append_images=images[1:], optimize=False, duration=40, loop=0)
+
+        return
+    elif _codec.upper() == "MP4":
         _video_file_name = os.path.join(_out_path, "video.mp4")
         _fourcc = cv.VideoWriter_fourcc(*'mp4v')
     elif _codec.upper() == "AVI":
