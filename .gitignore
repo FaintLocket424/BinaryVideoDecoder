@@ -5,3 +5,4 @@ venv
 out
 *.mp4
 *.avi
+__pycache__

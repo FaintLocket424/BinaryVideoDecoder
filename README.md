@@ -13,9 +13,8 @@ This takes the guesswork out of trying to see if your video transformations are 
 
 ## Optional Flags
 
-- You may use `--outframes` for the program to output all the frames as PNG files.
+- You may use `--frames` for the program to output all the frames as PNG files instead of a video.
 - You may use `--bin [path]` to specify a path for the input binary file.
-- You may use `--novideo` to stop the program from outputting a video.
 - You may use `--codec [mp4|avi]` to select between an MP4 or AVI video output.
 - You may use `--compare [path]` to specify the path for another video which will be put next to the first for comparison
 - You may use `--overwrite` to save the video/images in a single folder, rather than in subfolder of the date.
