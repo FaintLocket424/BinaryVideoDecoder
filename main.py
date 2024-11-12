@@ -2,7 +2,6 @@ import argparse
 import os
 import struct
 import time
-from io import TextIOWrapper
 from typing import BinaryIO
 
 import numpy as np
