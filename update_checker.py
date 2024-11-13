@@ -1,6 +1,5 @@
 import requests
 
-current_version: str = "v1.0.1"
 
 def split_version(_version: str) -> (int, int, int):
     s = _version[1:].split('.')
@@ -11,30 +10,40 @@ def split_version(_version: str) -> (int, int, int):
 
     return major, minor, patch
 
-def check_latest_version():
-    print(f"Current verison: {current_version}")
+
+def new_version_available(_release_notes: str):
+    print("Download at https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest")
+    print("Release notes:")
+
+    for note in _release_notes.split('\n'):
+        print(f"\t- {note}")
+
+
+def check_latest_version(_current_verison):
     url = f"https://api.github.com/repos/FaintLocket424/BinaryVideoDecoder/releases/latest"
     response = requests.get(url)
 
     if response.status_code == 200:
         latest_version: str = response.json().get("tag_name")
-        if latest_version and latest_version != current_version:
+        if latest_version and latest_version != _current_verison:
             l_maj, l_min, l_patch = split_version(latest_version)
-            c_maj, c_min, c_patch = split_version(current_version)
+            c_maj, c_min, c_patch = split_version(_current_verison)
+
+            release_notes = response.json().get("body")
 
             if l_maj > c_maj:
                 print(f"New major version available {latest_version}!")
-                print("Download at https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest")
+                new_version_available(release_notes)
             elif l_maj < c_maj:
                 print("You're running a newer version than latest, fancy.")
             elif l_min > c_min:
                 print(f"New minor version available {latest_version}!")
-                print("Download at https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest")
+                new_version_available(release_notes)
             elif l_min < c_min:
                 print("You're running a newer version than the latest, fancy.")
             elif l_patch > c_patch:
                 print(f"New patch available {latest_version}!")
-                print("Download at https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest")
+                new_version_available(release_notes)
             elif l_patch < c_patch:
                 print("You're running a newer version than the latest, fancy.")
         else:

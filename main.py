@@ -11,6 +11,8 @@ from numpy import ndarray
 from saving import save_images, save_video
 from update_checker import check_latest_version
 
+current_version: str = "v1.0.1"
+
 
 def get_args() -> Namespace:
     parser = argparse.ArgumentParser(description='Optional app description')
@@ -25,7 +27,8 @@ def get_args() -> Namespace:
     parser.add_argument('--overwrite', action='store_true',
                         help="when enabled, videos/images will not be stored in subfolders of the time")
     parser.add_argument('--scale', type=float, nargs=1, help="A scale factor by which all outputs will be scaled by.")
-    parser.add_argument('--skipupdate', action='store_true', help="When enabled, the program will skip checking for an update.")
+    parser.add_argument('--skipupdate', action='store_true',
+                        help="When enabled, the program will skip checking for an update.")
 
     return parser.parse_args()
 
@@ -86,10 +89,13 @@ def read_bin() -> ndarray:
 
 
 if __name__ == "__main__":
+    print(f"Running Binary Video Decoder {current_version}")
+    print("Written by Matthew Peters, aka @faintlocket424\n")
+
     args = get_args()
 
     if not args.skipupdate:
-        check_latest_version()
+        check_latest_version(current_version)
 
     data = read_bin()
 
