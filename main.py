@@ -8,10 +8,11 @@ from typing import BinaryIO
 import numpy as np
 from numpy import ndarray
 
+from BColours import BColors
 from saving import save_images, save_video
 from update_checker import check_latest_version
 
-current_version: str = "v1.0.1"
+current_version: str = "v1.1.0"
 
 
 def get_args() -> Namespace:
@@ -52,13 +53,23 @@ def get_file_information(_file: BinaryIO) -> (int, int, int, int):
 def read_bin() -> ndarray:
     _filename = args.bin[0] if args.bin else "test.bin"
 
-    _compare_file_name = args.compare[0] if args.compare else None
-    _compare_file: (BinaryIO | None) = open(_compare_file_name, 'rb') if args.compare else None
+    if not os.path.exists(_filename):
+        print(f"{BColors.FAIL}The specified input file does not exist: {_filename}", end='')
+        if not args.bin:
+            print("\nTry adding --bin [path] to the command to specify a new input file like `py main.py --bin tests/out.bin`")
 
-    if not os.path.exists(_filename) or (not (os.path.exists(_compare_file_name) if _compare_file else True)):
-        print("The specified input file does not exist:")
-        print(_filename)
+        print(BColors.ENDC)
         exit(1)
+
+    _compare_file_name = args.compare[0] if args.compare else None
+
+    if not os.path.exists(_compare_file_name):
+        print(f"{BColors.FAIL}The specified compare input file does not exist: {_compare_file_name}")
+        print("To specify the compare file, use --compare [path] e.g. `py main.py --compare out.bin`", end='')
+        print(BColors.ENDC)
+        exit(1)
+
+    _compare_file: (BinaryIO | None) = open(_compare_file_name, 'rb') if args.compare else None
 
     with open(_filename, 'rb') as _file:
         _src_number_of_frames, _src_number_of_channels, _src_width, _src_height = get_file_information(_file)
