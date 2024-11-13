@@ -143,3 +143,4 @@ if __name__ == "__main__":
         save_video(data, codec, out_path, width, height, scale_factor)
 
     print("Finished.")
+
