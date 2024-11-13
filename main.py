@@ -9,6 +9,7 @@ import numpy as np
 from numpy import ndarray
 
 from saving import save_images, save_video
+from update_checker import check_latest_version
 
 
 def get_args() -> Namespace:
@@ -84,6 +85,8 @@ def read_bin() -> ndarray:
 
 
 if __name__ == "__main__":
+    check_latest_version()
+
     args = get_args()
 
     data = read_bin()
