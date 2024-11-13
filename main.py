@@ -4,6 +4,7 @@ import struct
 import time
 from argparse import Namespace
 from typing import BinaryIO
+from shutil import rmtree
 
 import numpy as np
 from numpy import ndarray
@@ -121,14 +122,18 @@ if __name__ == "__main__":
     out_path = out_folder if args.overwrite else os.path.join(out_folder, str(int(time.time())))
 
     if not os.path.exists(out_path):
-        print(f"{BColours.WARNING}The specified output path does not exist: {out_path}")
-        print(f"Creating directory {out_path}", end='')
-        print(BColours.ENDC + '\n')
+        if args.out:
+            print(f"{BColours.WARNING}The specified output path does not exist: {out_path}")
+            print(f"Creating directory {out_path}", end='')
+            print(BColours.ENDC + '\n')
         os.makedirs(out_path, exist_ok=True)
 
     if args.overwrite:
-        for file in os.listdir(out_path):
-            os.remove(os.path.join(out_path, file))
+        for _dir_or_file in [f for f in os.listdir(out_path)]:
+            if os.path.isfile(os.path.join(out_path, _dir_or_file)):
+                os.remove(os.path.join(out_path, _dir_or_file))
+            else:
+                rmtree(os.path.join(out_path, _dir_or_file))
 
     scale_factor = args.scale[0] if args.scale else 1
 
