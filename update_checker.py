@@ -1,5 +1,16 @@
 import requests
 
+class BColors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 
 def split_version(_version: str) -> (int, int, int):
     s = _version[1:].split('.')
@@ -32,20 +43,20 @@ def check_latest_version(_current_verison):
             release_notes = response.json().get("body")
 
             if l_maj > c_maj:
-                print(f"New major version available {latest_version}!")
+                print(f"{BColors.WARNING}New major version available {latest_version}!{BColors.ENDC}")
                 new_version_available(release_notes)
             elif l_maj < c_maj:
                 print("You're running a newer version than latest, fancy.")
             elif l_min > c_min:
-                print(f"New minor version available {latest_version}!")
+                print(f"{BColors.WARNING}New minor version available {latest_version}!{BColors.ENDC}")
                 new_version_available(release_notes)
             elif l_min < c_min:
                 print("You're running a newer version than the latest, fancy.")
             elif l_patch > c_patch:
-                print(f"New patch available {latest_version}!")
+                print(f"{BColors.WARNING}New patch available {latest_version}!{BColors.ENDC}")
                 new_version_available(release_notes)
             elif l_patch < c_patch:
-                print("You're running a newer version than the latest, fancy.")
+                print(f"{BColors.OKCYAN}You're running a newer version than the latest, fancy.{BColors.ENDC}")
         else:
             print("You're using the latest version!")
     else:
