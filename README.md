@@ -19,3 +19,4 @@ This takes the guesswork out of trying to see if your video transformations are 
 - You may use `--compare [path]` to specify the path for another video which will be put next to the first for comparison
 - You may use `--overwrite` to save the video/images in a single folder, rather than in subfolder of the date.
 - You may use `--scale [factor]` to scale the output images/videos
+- You may use `--skipupdate` to skip running the update checker.
