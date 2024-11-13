@@ -2,17 +2,17 @@
 
 **Written by Matthew Peters**.
 
-Standard gif output: 
-
-![](assets/gif_output.gif)
-
-Compare gif output (comparing the same file):
-
-![](assets/gif_compare.gif)
-
 This is a simple python program which converts a very specific binary file format into a series of images and/or an MP4 file for viewing.
 
 This takes the guesswork out of trying to see if your video transformations are actually working.
+
+#### Standard gif output: 
+
+![](assets/gif_output.gif)
+
+#### Compare gif output (comparing the same file):
+
+![](assets/gif_compare.gif)
 
 ## How to Run
 1. Download the [latest release](https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest)

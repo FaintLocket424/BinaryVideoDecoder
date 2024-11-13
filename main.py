@@ -4,7 +4,6 @@ import struct
 import time
 from argparse import Namespace
 from typing import BinaryIO
-from shutil import rmtree
 
 import numpy as np
 from numpy import ndarray
@@ -119,7 +118,7 @@ if __name__ == "__main__":
     _, height, width, _ = data.shape
 
     out_folder = args.out[0] if args.out else "out"
-    out_path = out_folder if args.overwrite else os.path.join(out_folder, str(int(time.time())))
+    out_path = out_folder if args.overwrite else os.path.join(out_folder, "out-" + str(int(time.time())))
 
     if not os.path.exists(out_path):
         if args.out:
@@ -129,11 +128,10 @@ if __name__ == "__main__":
         os.makedirs(out_path, exist_ok=True)
 
     if args.overwrite:
-        for _dir_or_file in [f for f in os.listdir(out_path)]:
-            if os.path.isfile(os.path.join(out_path, _dir_or_file)):
-                os.remove(os.path.join(out_path, _dir_or_file))
-            else:
-                rmtree(os.path.join(out_path, _dir_or_file))
+        output_dir_contents = os.listdir(out_path)
+        only_files = [f for f in output_dir_contents if os.path.isfile(os.path.join(out_path, f))]
+        for _file in [f for f in only_files if f.startswith("video.")]:
+            os.remove(os.path.join(out_path, _file))
 
     scale_factor = args.scale[0] if args.scale else 1
 
