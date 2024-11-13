@@ -8,7 +8,7 @@ from typing import BinaryIO
 import numpy as np
 from numpy import ndarray
 
-from BColours import BColors
+from BColours import BColours
 from saving import save_images, save_video
 from update_checker import check_latest_version
 
@@ -54,19 +54,19 @@ def read_bin() -> ndarray:
     _filename = args.bin[0] if args.bin else "test.bin"
 
     if not os.path.exists(_filename):
-        print(f"{BColors.FAIL}The specified input file does not exist: {_filename}", end='')
+        print(f"{BColours.FAIL}The specified input file does not exist: {_filename}", end='')
         if not args.bin:
             print("\nTry adding --bin [path] to the command to specify a new input file like `py main.py --bin tests/out.bin`")
 
-        print(BColors.ENDC)
+        print(BColours.ENDC)
         exit(1)
 
     _compare_file_name = args.compare[0] if args.compare else None
 
     if not os.path.exists(_compare_file_name):
-        print(f"{BColors.FAIL}The specified compare input file does not exist: {_compare_file_name}")
+        print(f"{BColours.FAIL}The specified compare input file does not exist: {_compare_file_name}")
         print("To specify the compare file, use --compare [path] e.g. `py main.py --compare out.bin`", end='')
-        print(BColors.ENDC)
+        print(BColours.ENDC)
         exit(1)
 
     _compare_file: (BinaryIO | None) = open(_compare_file_name, 'rb') if args.compare else None

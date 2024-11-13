@@ -1,6 +1,6 @@
 import requests
 
-from BColours import BColors
+from BColours import BColours
 
 
 def split_version(_version: str) -> (int, int, int):
@@ -18,7 +18,7 @@ def new_version_available(_release_notes: str):
     print("Release notes:")
 
     for note in _release_notes.split('\n'):
-        print(f"\t- {note}")
+        print(f"\t{note}")
 
 
 def check_latest_version(_current_verison):
@@ -34,20 +34,20 @@ def check_latest_version(_current_verison):
             release_notes = response.json().get("body")
 
             if l_maj > c_maj:
-                print(f"{BColors.WARNING}New major version available {latest_version}!{BColors.ENDC}")
+                print(f"{BColours.WARNING}New major version available {latest_version}!{BColours.ENDC}")
                 new_version_available(release_notes)
             elif l_maj < c_maj:
                 print("You're running a newer version than latest, fancy.")
             elif l_min > c_min:
-                print(f"{BColors.WARNING}New minor version available {latest_version}!{BColors.ENDC}")
+                print(f"{BColours.WARNING}New minor version available {latest_version}!{BColours.ENDC}")
                 new_version_available(release_notes)
             elif l_min < c_min:
                 print("You're running a newer version than the latest, fancy.")
             elif l_patch > c_patch:
-                print(f"{BColors.WARNING}New patch available {latest_version}!{BColors.ENDC}")
+                print(f"{BColours.WARNING}New patch available {latest_version}!{BColours.ENDC}")
                 new_version_available(release_notes)
             elif l_patch < c_patch:
-                print(f"{BColors.OKCYAN}You're running a newer version than the latest, fancy.{BColors.ENDC}")
+                print(f"{BColours.OKCYAN}You're running a newer version than the latest, fancy.{BColours.ENDC}")
         else:
             print("You're using the latest version!")
     else:
