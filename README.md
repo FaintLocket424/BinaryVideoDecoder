@@ -2,7 +2,7 @@
 
 **Written by Matthew Peters**.
 
-This is a simple python program which converts a very specific binary file format into a series of images and/or an MP4 file for viewing.
+This is a simple python program which converts a very specific binary file format into a series of images and/or a video file for viewing.
 
 This takes the guesswork out of trying to see if your video transformations are actually working.
 
