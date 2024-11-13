@@ -30,6 +30,7 @@ def get_args() -> Namespace:
     parser.add_argument('--scale', type=float, nargs=1, help="A scale factor by which all outputs will be scaled by.")
     parser.add_argument('--skipupdate', action='store_true',
                         help="When enabled, the program will skip checking for an update.")
+    parser.add_argument('--out', type=str, nargs=1, help="redirect the output")
 
     return parser.parse_args()
 
@@ -116,7 +117,14 @@ if __name__ == "__main__":
 
     _, height, width, _ = data.shape
 
-    out_path = "out" if args.overwrite else os.path.join("out", str(int(time.time())))
+    out_folder = args.out[0] if args.out else "out"
+    out_path = out_folder if args.overwrite else os.path.join(out_folder, str(int(time.time())))
+
+    if not os.path.exists(out_path):
+        print(f"{BColours.WARNING}The specified output path does not exist: {out_path}")
+        print(f"Creating directory {out_path}", end='')
+        print(BColours.ENDC + '\n')
+        os.makedirs(out_path, exist_ok=True)
 
     if args.overwrite:
         for file in os.listdir(out_path):

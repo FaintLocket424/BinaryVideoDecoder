@@ -7,9 +7,6 @@ from numpy import ndarray
 
 
 def save_images(_data: ndarray, _out_path: str, _scale_factor: float) -> None:
-    if not os.path.exists(_out_path):
-        os.makedirs(_out_path, exist_ok=True)
-
     for _frame_num in range(_data.shape[0]):
         _frame = _data[_frame_num]
         _image = pImg.fromarray(_frame, 'RGB')

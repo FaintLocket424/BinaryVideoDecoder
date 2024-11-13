@@ -7,7 +7,7 @@ This is a simple python program which converts a very specific binary file forma
 This takes the guesswork out of trying to see if your video transformations are actually working.
 
 ## How to Run
-1. Clone the repo to your machine.
+1. Download the [latest release](https://github.com/FaintLocket424/BinaryVideoDecoder/releases/latest)
 2. Requires the `opencv` and `pillow` conda packages. Alternatively, you can `pip install -r requirements.txt` which will pip install the necessary dependencies.
 3. To run the program, simply run `python.exe main.py`
 
@@ -20,3 +20,4 @@ This takes the guesswork out of trying to see if your video transformations are 
 - You may use `--overwrite` to save the video/images in a single folder, rather than in subfolder of the date.
 - You may use `--scale [factor]` to scale the output images/videos
 - You may use `--skipupdate` to skip running the update checker.
+- You may use `--out [path]` to redirect the output to a folder of your choice
