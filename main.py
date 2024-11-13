@@ -12,7 +12,7 @@ from BColours import BColours
 from saving import save_images, save_video
 from update_checker import check_latest_version
 
-current_version: str = "v1.1.0"
+current_version: str = "v1.1.1"
 
 
 def get_args() -> Namespace:
@@ -61,15 +61,19 @@ def read_bin() -> ndarray:
         print(BColours.ENDC)
         exit(1)
 
-    _compare_file_name = args.compare[0] if args.compare else None
+    _compare_file_name: str | None = None
+    _compare_file: (BinaryIO | None) = None
 
-    if not os.path.exists(_compare_file_name):
-        print(f"{BColours.FAIL}The specified compare input file does not exist: {_compare_file_name}")
-        print("To specify the compare file, use --compare [path] e.g. `py main.py --compare out.bin`", end='')
-        print(BColours.ENDC)
-        exit(1)
+    if args.compare:
+        _compare_file_name = args.compare[0]
 
-    _compare_file: (BinaryIO | None) = open(_compare_file_name, 'rb') if args.compare else None
+        if not os.path.exists(_compare_file_name):
+            print(f"{BColours.FAIL}The specified compare input file does not exist: {_compare_file_name}")
+            print("To specify the compare file, use --compare [path] e.g. `py main.py --compare out.bin`", end='')
+            print(BColours.ENDC)
+            exit(1)
+
+        _compare_file = open(_compare_file_name, 'rb')
 
     with open(_filename, 'rb') as _file:
         _src_number_of_frames, _src_number_of_channels, _src_width, _src_height = get_file_information(_file)
