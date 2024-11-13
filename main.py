@@ -37,18 +37,18 @@ def get_args() -> Namespace:
 
 def get_file_information(_file: BinaryIO) -> (int, int, int, int):
     print(f"Reading data for {_file.name}")
-    _numofframes: int = struct.unpack('<Q', _file.read(8))[0]
-    _numofchannels: int = struct.unpack('B', _file.read(1))[0]
+    _num_of_frames: int = struct.unpack('<Q', _file.read(8))[0]
+    _num_of_channels: int = struct.unpack('B', _file.read(1))[0]
     _height: int = struct.unpack('B', _file.read(1))[0]
     _width: int = struct.unpack('B', _file.read(1))[0]
 
-    print(f"Number of frames: {_numofframes}")
-    print(f"Number of channels: {_numofchannels}")
+    print(f"Number of frames: {_num_of_frames}")
+    print(f"Number of channels: {_num_of_channels}")
     print(f"Height: {_height}")
     print(f"Width: {_width}")
     print()
 
-    return _numofframes, _numofchannels, _width, _height
+    return _num_of_frames, _num_of_channels, _width, _height
 
 
 def read_bin() -> ndarray:
