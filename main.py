@@ -12,7 +12,7 @@ from BColours import BColours
 from saving import save_images, save_video
 from update_checker import check_latest_version
 
-current_version: str = "v1.2.1"
+current_version: str = "v1.3.0"
 
 
 def get_args() -> Namespace:
