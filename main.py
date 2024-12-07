@@ -139,7 +139,7 @@ if __name__ == "__main__":
         save_images(data, out_path, scale_factor)
 
     if not args.frames:
-        codec: str = args.codec[0] if args.codec else 'GIF'
+        codec: str = args.codec[0] if args.codec else 'MP4'
         save_video(data, codec, out_path, width, height, scale_factor)
 
     print("Finished.")
