@@ -6,7 +6,7 @@ from PIL import Image as pImg
 from numpy import ndarray
 
 
-def save_images(_data: ndarray, _out_path: str, _scale_factor: float) -> None:
+def save_images(_data: ndarray, _out_path: str, _scale_factor: float, _name_suffix: str) -> None:
     for _frame_num in range(_data.shape[0]):
         _frame = _data[_frame_num]
         _image = pImg.fromarray(_frame, 'RGB')
@@ -15,10 +15,11 @@ def save_images(_data: ndarray, _out_path: str, _scale_factor: float) -> None:
             new_size = (int(_image.width * _scale_factor), int(_image.height * _scale_factor))
             _image = _image.resize(new_size, pImg.Resampling.LANCZOS)
 
-        _image.save(os.path.join(_out_path, f"frame_{_frame_num:03}.png"), 'PNG')
+        _image.save(os.path.join(_out_path, f"frame_{_frame_num:03}_{_name_suffix}.png"), 'PNG')
 
 
-def save_video(_data: ndarray, _codec: str, _out_path: str, _width: int, _height: int, _scale_factor: float) -> None:
+def save_video(_data: ndarray, _codec: str, _out_path: str, _width: int, _height: int, _scale_factor: float,
+               _name_suffix: str) -> None:
     if _codec.upper() == "GIF":
         _video_file_name = os.path.join(_out_path, "video.gif")
 
@@ -37,10 +38,10 @@ def save_video(_data: ndarray, _codec: str, _out_path: str, _width: int, _height
 
         return
     elif _codec.upper() == "MP4":
-        _video_file_name = os.path.join(_out_path, "video.mp4")
+        _video_file_name = os.path.join(_out_path, f"video_{_name_suffix}.mp4")
         _fourcc = cv.VideoWriter_fourcc(*'mp4v')
     elif _codec.upper() == "AVI":
-        _video_file_name = os.path.join(_out_path, "video.avi")
+        _video_file_name = os.path.join(_out_path, f"video_{_name_suffix}.avi")
         _fourcc = cv.VideoWriter_fourcc(*'DIVX')
     else:
         print("Invalid media codec selected")

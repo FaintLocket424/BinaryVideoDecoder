@@ -31,6 +31,8 @@ def get_args() -> Namespace:
     parser.add_argument('--skipupdate', action='store_true',
                         help="When enabled, the program will skip checking for an update.")
     parser.add_argument('--out', type=str, nargs=1, help="redirect the output")
+    parser.add_argument('--named', action='store_true',
+                        help="When enabled, output videos/images will contain the input file name")
     parser.add_argument('--prompt', action='store_true',
                         help="When enabled, program will prompt for path to input binary file in console.")
 
@@ -53,9 +55,9 @@ def get_file_information(_file: BinaryIO) -> (int, int, int, int):
     return _num_of_frames, _num_of_channels, _width, _height
 
 
-def read_bin(_filename) -> ndarray:
-    if not os.path.exists(_filename):
-        print(f"{BColours.FAIL}The specified input file does not exist: {_filename}", end='')
+def read_bin(file_name) -> ndarray:
+    if not os.path.exists(file_name):
+        print(f"{BColours.FAIL}The specified input file does not exist: {file_name}", end='')
         if not args.bin:
             print("\nTry adding --bin [path] to the command to specify a new input file like `py main.py --bin tests/out.bin`")
 
@@ -76,7 +78,7 @@ def read_bin(_filename) -> ndarray:
 
         _compare_file = open(_compare_file_name, 'rb')
 
-    with open(_filename, 'rb') as _file:
+    with open(file_name, 'rb') as _file:
         _src_number_of_frames, _src_number_of_channels, _src_width, _src_height = get_file_information(_file)
 
         if _compare_file:
@@ -137,11 +139,11 @@ if __name__ == "__main__":
     scale_factor = args.scale[0] if args.scale else 1
 
     if args.frames:
-        save_images(data, out_path, scale_factor)
+        save_images(data, out_path, scale_factor, file_name)
 
     if not args.frames:
         codec: str = args.codec[0] if args.codec else 'MP4'
-        save_video(data, codec, out_path, width, height, scale_factor)
+        save_video(data, codec, out_path, width, height, scale_factor, file_name)
 
     print("Finished.")
 
