@@ -31,6 +31,8 @@ def get_args() -> Namespace:
     parser.add_argument('--skipupdate', action='store_true',
                         help="When enabled, the program will skip checking for an update.")
     parser.add_argument('--out', type=str, nargs=1, help="redirect the output")
+    parser.add_argument('--prompt', action='store_true',
+                        help="When enabled, program will prompt for path to input binary file in console.")
 
     return parser.parse_args()
 
@@ -51,9 +53,7 @@ def get_file_information(_file: BinaryIO) -> (int, int, int, int):
     return _num_of_frames, _num_of_channels, _width, _height
 
 
-def read_bin() -> ndarray:
-    _filename = args.bin[0] if args.bin else "test.bin"
-
+def read_bin(_filename) -> ndarray:
     if not os.path.exists(_filename):
         print(f"{BColours.FAIL}The specified input file does not exist: {_filename}", end='')
         if not args.bin:
@@ -113,7 +113,8 @@ if __name__ == "__main__":
     if not args.skipupdate:
         check_latest_version(current_version)
 
-    data = read_bin()
+    file_name = args.bin[0] if args.bin else input("Input file path: ") if args.prompt else "test.bin"
+    data = read_bin(file_name)
 
     _, height, width, _ = data.shape
 
