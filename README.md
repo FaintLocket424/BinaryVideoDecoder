@@ -29,3 +29,5 @@ This takes the guesswork out of trying to see if your video transformations are 
 - You may use `--scale [factor]` to scale the output images/videos
 - You may use `--skipupdate` to skip running the update checker.
 - You may use `--out [path]` to redirect the output to a folder of your choice
+- You may use `--named` to suffix the output with the input file name
+- You may use `--prompt` to prompt for the input binary file path in the console
