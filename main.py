@@ -22,7 +22,7 @@ def get_args() -> Namespace:
                         help="When enabled, program will output the individual frames")
     parser.add_argument('--bin', type=str, nargs=1, help="path to input binary file. Defaults to 'out.bin'")
     parser.add_argument('--codec', type=str, nargs=1,
-                        help="The video extension to use, AVI, MP4 or GIF. Defaults to MP4")
+                        help="The video extension to use, AVI, MP4 or GIF. Defaults to GIF")
     parser.add_argument('--compare', type=str, nargs=1,
                         help="Specify a path to another binary which will be put beside the first binary in the output.")
     parser.add_argument('--overwrite', action='store_true',
@@ -142,7 +142,7 @@ if __name__ == "__main__":
         save_images(data, out_path, scale_factor, file_name)
 
     if not args.frames:
-        codec: str = args.codec[0] if args.codec else 'MP4'
+        codec: str = args.codec[0] if args.codec else 'GIF'
         save_video(data, codec, out_path, width, height, scale_factor, file_name)
 
     print("Finished.")
